@@ -18,9 +18,6 @@
 
 ## ✨ About The Project
 
-![SecureSight Dashboard Screenshot](https://via.placeholder.com/800x450.png?text=Project+Screenshot+or+GIF+Here)
-*(Replace the above placeholder with a screenshot or GIF of your dashboard)*
-
 SecureSight is a comprehensive solution for modern security monitoring. Traditional CCTV systems often have clunky, slow interfaces. This project re-imagines the experience with a fluid, real-time dashboard that allows security operators to track, review, and resolve incidents with maximum efficiency.
 
 Key design principles include:
