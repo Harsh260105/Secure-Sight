@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Camera {
+  id        Int      @id @default(autoincrement())
+  name      String
+  location  String
+  status    CameraStatus @default(ONLINE)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  incidents Incident[]
+
+  @@map("cameras")
+}
+
+model Incident {
+  id           Int           @id @default(autoincrement())
+  cameraId     Int           @map("camera_id")
+  type         IncidentType
+  tsStart      DateTime      @map("ts_start")
+  tsEnd        DateTime      @map("ts_end")
+  thumbnailUrl String        @map("thumbnail_url")
+  resolved     Boolean       @default(false)
+  severity     Severity      @default(MEDIUM)
+  description  String?
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  
+  // Relations
+  camera       Camera        @relation(fields: [cameraId], references: [id], onDelete: Cascade)
+
+  @@index([cameraId])
+  @@index([tsStart])
+  @@index([resolved])
+  @@index([type])
+  @@index([severity])
+  @@map("incidents")
+}
+
+enum CameraStatus {
+  ONLINE
+  OFFLINE
+  MAINTENANCE
+}
+
+enum IncidentType {
+  GUN_THREAT
+  UNAUTHORISED_ACCESS
+  FACE_RECOGNISED
+  SUSPICIOUS_ACTIVITY
+  MOTION_DETECTION
+  EQUIPMENT_TAMPERING
+}
+
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
