@@ -104,11 +104,6 @@ export function IncidentPlayer({ selectedIncident, currentTime }: IncidentPlayer
             />
           ) : (
             <div className="text-center text-white/70 dark:text-slate-400">
-              <img
-                src="/placeholder.svg?height=64&width=64"
-                alt="Camera Icon"
-                className="h-16 w-16 mx-auto mb-4 opacity-50"
-              />
               <p className="text-lg">Select an incident to view</p>
               <p className="text-sm opacity-70">Choose from the incident list on the right</p>
             </div>
