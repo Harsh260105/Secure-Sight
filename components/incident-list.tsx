@@ -262,14 +262,14 @@ export function IncidentList({
                     <span className="font-medium text-sm truncate text-foreground">{incident.type}</span>
                     {/* Reserve space for selected badge to prevent layout shift */}
                     <div className="w-16 flex justify-end">
-                      {isSelected && (
+                      {/* {isSelected && (
                         <Badge
                           variant="outline"
                           className="text-xs bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700"
                         >
                           SELECTED
                         </Badge>
-                      )}
+                      )} */}
                     </div>
                   </div>
                   <div className="flex items-center space-x-1 flex-shrink-0">
@@ -414,7 +414,7 @@ export function IncidentList({
 
         <TabsContent value="unresolved" className="flex-1 mt-0">
           <ScrollArea className="h-[calc(100vh)] rounded-lg" ref={scrollAreaRef}>
-            <div className="space-y-3 pr-4 pt-2">
+            <div className="space-y-3 pr-4 pt-2 ml-1">
               {currentIncidents.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -430,7 +430,7 @@ export function IncidentList({
 
         <TabsContent value="resolved" className="flex-1 mt-0">
           <ScrollArea className="h-[calc(100vh)] rounded-lg" ref={scrollAreaRef}>
-            <div className="space-y-3 pr-4 pt-2">
+            <div className="space-y-3 pr-4 pt-2 ml-1">
               {currentIncidents.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />

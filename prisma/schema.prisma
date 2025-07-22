@@ -43,10 +43,7 @@ model Incident {
   camera       Camera        @relation(fields: [cameraId], references: [id], onDelete: Cascade)
 
   @@index([cameraId])
-  @@index([tsStart])
-  @@index([resolved])
-  @@index([type])
-  @@index([severity])
+  @@index([resolved, severity, type, tsStart])
   @@map("incidents")
 }
 
