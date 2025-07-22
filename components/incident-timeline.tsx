@@ -506,7 +506,7 @@ export function IncidentTimeline({
 
   if (!mounted) {
     return (
-      <Card className="p-6 bg-gray-900 text-white">
+      <Card className="p-6 bg-slate-900 dark:bg-slate-950 text-white border-slate-800 dark:border-slate-700">
         <div className="space-y-4">
           <div className="flex items-center justify-center h-32">
             <RefreshCw className="h-8 w-8 animate-spin text-blue-400" />
@@ -517,19 +517,19 @@ export function IncidentTimeline({
   }
 
   return (
-    <Card className="p-6 bg-gray-900 text-white">
+    <Card className="p-6 bg-slate-900 dark:bg-slate-950 text-white border-slate-800 dark:border-slate-700 timeline-dark">
       <div className="space-y-6">
         {/* Timeline Controls */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center space-x-4">
             {/* Date Selection */}
             <div className="flex items-center space-x-2">
-              <Calendar className="h-4 w-4 text-gray-400" />
+              <Calendar className="h-4 w-4 text-slate-400" />
               <input
                 type="date"
                 value={localSelectedDate}
                 onChange={handleDateChange}
-                className="text-sm bg-gray-800 border border-gray-700 rounded px-3 py-1 text-white"
+                className="text-sm bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-600 rounded px-3 py-1 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
@@ -539,7 +539,7 @@ export function IncidentTimeline({
                 variant="outline"
                 size="icon"
                 onClick={jumpToStart}
-                className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700 h-8 w-8"
+                className="bg-slate-800 dark:bg-slate-900 border-slate-700 dark:border-slate-600 text-white hover:bg-slate-700 dark:hover:bg-slate-800 h-8 w-8"
               >
                 <SkipBack className="h-4 w-4" />
               </Button>
@@ -548,7 +548,7 @@ export function IncidentTimeline({
                 variant="outline"
                 size="icon"
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700 h-8 w-8"
+                className="bg-slate-800 dark:bg-slate-900 border-slate-700 dark:border-slate-600 text-white hover:bg-slate-700 dark:hover:bg-slate-800 h-8 w-8"
               >
                 {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
               </Button>
@@ -557,7 +557,7 @@ export function IncidentTimeline({
                 variant="outline"
                 size="icon"
                 onClick={jumpToEnd}
-                className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700 h-8 w-8"
+                className="bg-slate-800 dark:bg-slate-900 border-slate-700 dark:border-slate-600 text-white hover:bg-slate-700 dark:hover:bg-slate-800 h-8 w-8"
               >
                 <SkipForward className="h-4 w-4" />
               </Button>
@@ -565,11 +565,11 @@ export function IncidentTimeline({
 
             {/* Speed Control */}
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-400">Speed:</span>
+              <span className="text-sm text-slate-400">Speed:</span>
               <select
                 value={playbackSpeed}
                 onChange={(e) => setPlaybackSpeed(Number(e.target.value))}
-                className="text-sm bg-gray-800 border border-gray-700 rounded px-2 py-1 text-white"
+                className="text-sm bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-600 rounded px-2 py-1 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value={0.5}>0.5x</option>
                 <option value={1}>1x</option>
@@ -584,7 +584,7 @@ export function IncidentTimeline({
                 variant="outline"
                 size="sm"
                 onClick={focusOnSelectedIncident}
-                className="text-xs h-7 bg-blue-800 border-blue-600 text-blue-200 hover:bg-blue-700"
+                className="text-xs h-7 bg-blue-800 dark:bg-blue-900 border-blue-600 dark:border-blue-700 text-blue-200 dark:text-blue-300 hover:bg-blue-700 dark:hover:bg-blue-800"
               >
                 <Target className="h-3 w-3 mr-1" />
                 Focus Selected
@@ -600,7 +600,7 @@ export function IncidentTimeline({
                 size="sm"
                 onClick={panLeft}
                 disabled={viewportStart <= new Date(localSelectedDate + "T00:00:00")}
-                className="text-xs h-7 bg-gray-800 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="text-xs h-7 bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300 hover:bg-slate-700 dark:hover:bg-slate-800 disabled:opacity-50"
               >
                 <ChevronLeft className="h-3 w-3" />
               </Button>
@@ -609,7 +609,7 @@ export function IncidentTimeline({
                 size="sm"
                 onClick={panRight}
                 disabled={viewportEnd >= new Date(localSelectedDate + "T23:59:59")}
-                className="text-xs h-7 bg-gray-800 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="text-xs h-7 bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300 hover:bg-slate-700 dark:hover:bg-slate-800 disabled:opacity-50"
               >
                 <ChevronRight className="h-3 w-3" />
               </Button>
@@ -622,17 +622,17 @@ export function IncidentTimeline({
                 size="sm"
                 onClick={zoomOut}
                 disabled={zoomLevel === 0}
-                className="text-xs h-7 bg-gray-800 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="text-xs h-7 bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300 hover:bg-slate-700 dark:hover:bg-slate-800 disabled:opacity-50"
               >
                 <ZoomOut className="h-3 w-3" />
               </Button>
-              <span className="text-sm text-gray-400 min-w-[3rem] text-center">{currentZoom.label}</span>
+              <span className="text-sm text-slate-400 min-w-[3rem] text-center">{currentZoom.label}</span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={zoomIn}
                 disabled={zoomLevel === ZOOM_LEVELS.length - 1}
-                className="text-xs h-7 bg-gray-800 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="text-xs h-7 bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300 hover:bg-slate-700 dark:hover:bg-slate-800 disabled:opacity-50"
               >
                 <ZoomIn className="h-3 w-3" />
               </Button>
@@ -653,14 +653,17 @@ export function IncidentTimeline({
         </div>
 
         {/* Viewport Info */}
-        <div className="flex items-center justify-between text-sm text-gray-400">
+        <div className="flex items-center justify-between text-sm text-slate-400">
           <div className="flex items-center space-x-4">
             <span>
               Viewing: {viewportStart.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })} -{" "}
               {viewportEnd.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}
             </span>
             {selectedIncident && (
-              <Badge variant="outline" className="bg-blue-900 text-blue-200 border-blue-600">
+              <Badge
+                variant="outline"
+                className="bg-blue-900 dark:bg-blue-950/50 text-blue-200 dark:text-blue-300 border-blue-600 dark:border-blue-700"
+              >
                 Selected: {selectedIncident.type} @ {selectedIncident.camera.name}
               </Badge>
             )}
@@ -671,15 +674,15 @@ export function IncidentTimeline({
         </div>
 
         {/* Timeline Container */}
-        <div className="relative bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+        <div className="relative bg-slate-800 dark:bg-slate-900 rounded-lg overflow-hidden border border-slate-700 dark:border-slate-600">
           {/* Camera List */}
           <div
-            className="absolute left-0 top-0 bg-gray-900 border-r border-gray-700 z-10"
+            className="absolute left-0 top-0 bg-slate-900 dark:bg-slate-950 border-r border-slate-700 dark:border-slate-600 z-10"
             style={{ width: leftPanelWidth, height: totalHeight }}
           >
             {/* Header */}
             <div
-              className="flex items-center px-4 border-b border-gray-700 text-sm font-medium text-gray-300 bg-gray-800"
+              className="flex items-center px-4 border-b border-slate-700 dark:border-slate-600 text-sm font-medium text-slate-300 bg-slate-800 dark:bg-slate-900"
               style={{ height: headerHeight }}
             >
               <Camera className="h-4 w-4 mr-2" />
@@ -692,15 +695,15 @@ export function IncidentTimeline({
               return (
                 <div
                   key={camera.id}
-                  className={`flex items-center px-4 border-b border-gray-700 text-sm text-white hover:bg-gray-800 transition-colors ${
-                    hasSelectedIncident ? "bg-blue-900 border-blue-600" : ""
+                  className={`flex items-center px-4 border-b border-slate-700 dark:border-slate-600 text-sm text-white hover:bg-slate-800 dark:hover:bg-slate-800/50 transition-colors ${
+                    hasSelectedIncident ? "bg-blue-900 dark:bg-blue-950/50 border-blue-600 dark:border-blue-700" : ""
                   }`}
                   style={{ height: cameraRowHeight }}
                 >
                   <div className="flex items-center space-x-3 w-full">
                     <div
                       className={`h-2 w-2 rounded-full animate-pulse flex-shrink-0 ${
-                        hasSelectedIncident ? "bg-blue-400" : "bg-green-500"
+                        hasSelectedIncident ? "bg-blue-400 camera-status-online" : "bg-green-500 camera-status-online"
                       }`}
                     />
                     <div className="flex-1 min-w-0">
@@ -708,7 +711,7 @@ export function IncidentTimeline({
                         {camera.name}
                       </div>
                       <div
-                        className={`text-xs opacity-70 truncate ${hasSelectedIncident ? "text-blue-300" : "text-gray-400"}`}
+                        className={`text-xs opacity-70 truncate ${hasSelectedIncident ? "text-blue-300" : "text-slate-400"}`}
                       >
                         {camera.location}
                       </div>
@@ -730,7 +733,7 @@ export function IncidentTimeline({
               onClick={handleTimelineClick}
             >
               {/* Background */}
-              <rect width={timelineWidth} height={totalHeight} fill="#1f2937" />
+              <rect width={timelineWidth} height={totalHeight} fill="#0f172a" />
 
               {/* Time markers and labels */}
               {timeMarkers.map((marker, index) => (
@@ -740,7 +743,7 @@ export function IncidentTimeline({
                     y1={0}
                     x2={marker.x}
                     y2={totalHeight}
-                    stroke="#374151"
+                    stroke="#334155"
                     strokeWidth={marker.isHour ? 2 : 1}
                     opacity={marker.isHour ? 1 : 0.5}
                   />
@@ -749,7 +752,7 @@ export function IncidentTimeline({
                     y={headerHeight - 15}
                     textAnchor="middle"
                     fontSize="10"
-                    fill="#9ca3af"
+                    fill="#94a3b8"
                     className="font-mono"
                   >
                     {marker.label}
@@ -765,7 +768,7 @@ export function IncidentTimeline({
                   y1={headerHeight + (index + 1) * cameraRowHeight}
                   x2={timelineWidth}
                   y2={headerHeight + (index + 1) * cameraRowHeight}
-                  stroke="#374151"
+                  stroke="#334155"
                   strokeWidth={1}
                 />
               ))}
@@ -838,7 +841,7 @@ export function IncidentTimeline({
                   y={headerHeight + (cameras.length * cameraRowHeight) / 2}
                   textAnchor="middle"
                   fontSize="14"
-                  fill="#9ca3af"
+                  fill="#64748b"
                   className="pointer-events-none"
                 >
                   No incidents in current view
@@ -855,7 +858,7 @@ export function IncidentTimeline({
                     y2={totalHeight}
                     stroke="#f97316"
                     strokeWidth={3}
-                    className="cursor-ew-resize"
+                    className="cursor-ew-resize timeline-scrubber"
                   />
 
                   {/* Scrubber handle */}
@@ -866,7 +869,7 @@ export function IncidentTimeline({
                     fill="#f97316"
                     stroke="white"
                     strokeWidth={2}
-                    className="cursor-ew-resize"
+                    className="cursor-ew-resize timeline-scrubber"
                     onMouseDown={handleMouseDown}
                   />
 
@@ -897,7 +900,11 @@ export function IncidentTimeline({
             {Array.from(new Set(visibleIncidents.map((i) => i.type)))
               .slice(0, 6)
               .map((type) => (
-                <Badge key={type} variant="outline" className="text-xs bg-gray-800 border-gray-600 text-gray-300">
+                <Badge
+                  key={type}
+                  variant="outline"
+                  className="text-xs bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300"
+                >
                   <div
                     className="w-3 h-3 rounded-full mr-2"
                     style={{ backgroundColor: getIncidentColor(visibleIncidents.find((i) => i.type === type)!) }}
@@ -918,7 +925,7 @@ export function IncidentTimeline({
                   variant="outline"
                   size="sm"
                   onClick={() => jumpToIncident(incident)}
-                  className="text-xs h-7 bg-gray-800 border-gray-600 text-gray-300 hover:bg-gray-700"
+                  className="text-xs h-7 bg-slate-800 dark:bg-slate-900 border-slate-600 dark:border-slate-700 text-slate-300 hover:bg-slate-700 dark:hover:bg-slate-800"
                 >
                   {new Date(incident.tsStart).toLocaleTimeString("en-US", {
                     hour: "2-digit",

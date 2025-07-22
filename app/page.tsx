@@ -178,11 +178,11 @@ export default function Dashboard() {
 
   if (loading && allIncidents.length === 0) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-slate-950">
         <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
             <p className="text-muted-foreground">Loading dashboard...</p>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background dark:bg-slate-950">
       <Navbar />
 
       <div className="flex flex-col h-[calc(100vh-4rem)]">
@@ -201,7 +201,7 @@ export default function Dashboard() {
           <div className="flex-1 p-6">
             <div className="h-full">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Incident Player</h2>
+                <h2 className="text-2xl font-bold text-foreground">Incident Player</h2>
                 <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                   <span>
                     Timeline Date:{" "}
@@ -218,7 +218,9 @@ export default function Dashboard() {
                   {selectedIncident && (
                     <>
                       <span>•</span>
-                      <span className="text-blue-600 font-medium">Viewing: {selectedIncident.type}</span>
+                      <span className="text-blue-600 dark:text-blue-400 font-medium">
+                        Viewing: {selectedIncident.type}
+                      </span>
                     </>
                   )}
                 </div>
@@ -228,7 +230,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right Side - Incident List */}
-          <div className="w-100 border-l bg-muted/30 p-6">
+          <div className="w-100 border-l bg-muted/30 dark:bg-slate-900/30 p-6 border-border dark:border-slate-800">
             <IncidentList
               onIncidentSelect={handleIncidentSelect}
               selectedIncidentId={selectedIncident?.id}
@@ -240,9 +242,9 @@ export default function Dashboard() {
         </div>
 
         {/* Bottom Section - Timeline */}
-        <div className="border-t bg-background p-6">
+        <div className="border-t bg-background dark:bg-slate-950 p-6 border-border dark:border-slate-800">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold">Interactive Timeline</h2>
+            <h2 className="text-xl font-bold text-foreground">Interactive Timeline</h2>
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <span>{timelineIncidents.length} total incidents</span>
               <span>•</span>
@@ -250,11 +252,13 @@ export default function Dashboard() {
                 {selectedDateIncidents.length} on{" "}
                 {new Date(selectedDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </span>
-              {loading && <span className="ml-2 text-blue-600">• Refreshing...</span>}
+              {loading && <span className="ml-2 text-blue-600 dark:text-blue-400">• Refreshing...</span>}
               {selectedIncident && (
                 <>
                   <span>•</span>
-                  <span className="text-blue-600 font-medium">Selected: {selectedIncident.camera.name}</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-medium">
+                    Selected: {selectedIncident.camera.name}
+                  </span>
                 </>
               )}
             </div>

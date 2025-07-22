@@ -2,6 +2,8 @@
 
 A comprehensive CCTV monitoring dashboard built with **Next.js 15** and **Prisma ORM** connected to **Supabase PostgreSQL**.
 
+> **Note**: This application uses **Prisma exclusively** for all database operations. Supabase is used only as the PostgreSQL database provider.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
