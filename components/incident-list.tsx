@@ -404,7 +404,7 @@ export function IncidentList({
         </TabsList>
 
         <TabsContent value="unresolved" className="flex-1 mt-0">
-          <ScrollArea className="h-[calc(100vh)]" ref={scrollAreaRef}>
+          <ScrollArea className="h-[calc(100vh)] rounded-lg" ref={scrollAreaRef}>
             <div className="space-y-3 pr-4 pt-2">
               {currentIncidents.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
@@ -420,7 +420,7 @@ export function IncidentList({
         </TabsContent>
 
         <TabsContent value="resolved" className="flex-1 mt-0">
-          <ScrollArea className="h-[calc(100vh)]" ref={scrollAreaRef}>
+          <ScrollArea className="h-[calc(100vh)] rounded-lg" ref={scrollAreaRef}>
             <div className="space-y-3 pr-4 pt-2">
               {currentIncidents.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">

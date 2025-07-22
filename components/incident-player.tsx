@@ -193,11 +193,11 @@ export function IncidentPlayer({ selectedIncident, currentTime }: IncidentPlayer
       </Card>
 
       {/* Camera Thumbnails Strip */}
-      <div className="flex space-x-2">
-        {cameras.slice(0, 5).map((camera) => (
+      <div className="grid grid-cols-3 gap-2">
+        {cameras.slice(0, 6).map((camera) => (
           <Card
             key={camera.id}
-            className="flex-1 overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            className="overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
           >
             <div className="aspect-video bg-gray-100 flex items-center justify-center relative">
               <img
