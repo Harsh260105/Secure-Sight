@@ -34,7 +34,6 @@ interface IncidentListProps {
   allIncidents: IncidentWithCamera[]
   onIncidentResolve: (incidentId: number, newResolvedState: boolean) => void
   onRefresh: () => void
-  // Remove selectedDate and onDateChange props
 }
 
 export function IncidentList({
@@ -47,10 +46,6 @@ export function IncidentList({
   const [resolvingIds, setResolvingIds] = useState<Set<number>>(new Set())
   const [activeTab, setActiveTab] = useState("unresolved")
   const [refreshing, setRefreshing] = useState(false)
-  // Remove these lines:
-  // const [localSelectedDate, setLocalSelectedDate] = useState<string>(() => {
-  //   return selectedDate || new Date().toISOString().split("T")[0]
-  // })
 
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const selectedIncidentRef = useRef<HTMLDivElement>(null)
@@ -69,10 +64,6 @@ export function IncidentList({
       }),
     }
   }, [])
-
-  // Remove the useEffect for selectedDate sync
-
-  // Remove the handleDateChange function
 
   // Auto-scroll to selected incident when it changes
   useEffect(() => {
@@ -226,7 +217,7 @@ export function IncidentList({
     return `${minutes}:${seconds.toString().padStart(2, "0")}`
   }, [])
 
-  // Replace the dateFilteredIncidents logic with:
+  // Filter incidents by resolution status
   const { unresolvedIncidents, resolvedIncidents, currentIncidents } = useMemo(() => {
     // Show ALL incidents, no date filtering
     const unresolved = allIncidents.filter((incident) => !incident.resolved)
@@ -246,93 +237,98 @@ export function IncidentList({
       const isSelected = selectedIncidentId === incident.id
 
       return (
-        <Card
-          ref={isSelected ? selectedIncidentRef : undefined}
-          key={incident.id}
-          className={`p-3 cursor-pointer transition-all duration-200 border-l-4 w-full ${getIncidentColor(incident.type)} ${
-            isSelected
-              ? "ring-2 ring-blue-500 bg-blue-50 shadow-lg border-blue-500"
-              : "hover:shadow-md hover:bg-gray-50"
-          } ${isResolving ? "opacity-50" : ""}`}
-          onClick={() => onIncidentSelect(incident)}
-        >
-          <div className="flex space-x-3">
-            <img
-              src={incident.thumbnailUrl || "/placeholder.svg?height=36&width=48&query=security+camera"}
-              alt={`${incident.type} incident`}
-              className="w-12 h-9 object-cover rounded flex-shrink-0"
-            />
+        <div className="relative">
+          <Card
+            ref={isSelected ? selectedIncidentRef : undefined}
+            key={incident.id}
+            className={`p-3 cursor-pointer transition-all duration-200 border-l-4 ${getIncidentColor(incident.type)} ${
+              isSelected
+                ? "ring-2 ring-blue-500 bg-blue-50 shadow-lg border-blue-500"
+                : "hover:shadow-md hover:bg-gray-50"
+            } ${isResolving ? "opacity-50" : ""}`}
+            onClick={() => onIncidentSelect(incident)}
+          >
+            <div className="flex space-x-3">
+              <img
+                src={incident.thumbnailUrl || "/placeholder.svg?height=36&width=48&query=security+incident"}
+                alt={`${incident.type} incident`}
+                className="w-12 h-9 object-cover rounded flex-shrink-0"
+              />
 
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between mb-1">
-                <div className="flex items-center space-x-2">
-                  {getIncidentIcon(incident.type)}
-                  <span className="font-medium text-sm truncate">{incident.type}</span>
-                  {isSelected && (
-                    <Badge variant="outline" className="text-xs bg-blue-100 text-blue-700 border-blue-300">
-                      SELECTED
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-2 flex-1 min-w-0">
+                    {getIncidentIcon(incident.type)}
+                    <span className="font-medium text-sm truncate">{incident.type}</span>
+                    {/* Reserve space for selected badge to prevent layout shift */}
+                    <div className="w-16 flex justify-end">
+                      {/* {isSelected && (
+                        <Badge variant="outline" className="text-xs bg-blue-100 text-blue-700 border-blue-300">
+                          SELECTED
+                        </Badge>
+                      )} */}
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-1 flex-shrink-0">
+                    {incident.resolved && <CheckCircle className="h-4 w-4 text-green-500" />}
+                    <Badge variant="outline" className={`text-xs ${getSeverityColor(incident.severity)}`}>
+                      {incident.severity.toUpperCase()}
                     </Badge>
-                  )}
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
-                  {incident.resolved && <CheckCircle className="h-4 w-4 text-green-500" />}
-                  <Badge variant="outline" className={`text-xs ${getSeverityColor(incident.severity)}`}>
-                    {incident.severity.toUpperCase()}
-                  </Badge>
+
+                <p className="text-xs text-muted-foreground truncate mb-1">
+                  {incident.camera.name} - {incident.camera.location}
+                </p>
+
+                {incident.description && (
+                  <p className="text-xs text-muted-foreground truncate mb-1 italic">{incident.description}</p>
+                )}
+
+                <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <div className="flex items-center space-x-1 flex-1 min-w-0">
+                    <Clock className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">
+                      {formatTime(incident.tsStart)} - {formatTime(incident.tsEnd)}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-end flex-shrink-0 ml-2">
+                    <Badge variant="outline" className="text-xs mb-1">
+                      {formatDuration(incident.tsStart, incident.tsEnd)}
+                    </Badge>
+                    <span className="text-xs text-gray-500">{formatFullDateTime(incident.tsStart).date}</span>
+                  </div>
                 </div>
-              </div>
 
-              <p className="text-xs text-muted-foreground truncate mb-1">
-                {incident.camera.name} - {incident.camera.location}
-              </p>
-
-              {incident.description && (
-                <p className="text-xs text-muted-foreground truncate mb-1 italic">{incident.description}</p>
-              )}
-
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <div className="flex items-center space-x-1">
-                  <Clock className="h-3 w-3" />
-                  <span>
-                    {formatTime(incident.tsStart)} - {formatTime(incident.tsEnd)}
-                  </span>
+                <div className="mt-2 pt-2 border-t">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className={`w-full h-7 text-xs bg-transparent transition-colors ${
+                      incident.resolved
+                        ? "hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300"
+                        : "hover:bg-green-50 hover:text-green-700 hover:border-green-300"
+                    }`}
+                    onClick={(e) => handleResolve(incident.id, e)}
+                    disabled={isResolving}
+                  >
+                    {isResolving ? (
+                      <>
+                        <RefreshCw className="h-3 w-3 mr-1 animate-spin" />
+                        {incident.resolved ? "Reopening..." : "Resolving..."}
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        {incident.resolved ? "Reopen Incident" : "Mark as Resolved"}
+                      </>
+                    )}
+                  </Button>
                 </div>
-                <div className="flex flex-col items-end">
-                  <Badge variant="outline" className="text-xs mb-1">
-                    {formatDuration(incident.tsStart, incident.tsEnd)}
-                  </Badge>
-                  <span className="text-xs text-gray-500">{formatFullDateTime(incident.tsStart).date}</span>
-                </div>
-              </div>
-
-              <div className="mt-2 pt-2 border-t">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className={`w-full h-7 text-xs bg-transparent transition-colors ${
-                    incident.resolved
-                      ? "hover:bg-orange-50 hover:text-orange-700 hover:border-orange-300"
-                      : "hover:bg-green-50 hover:text-green-700 hover:border-green-300"
-                  }`}
-                  onClick={(e) => handleResolve(incident.id, e)}
-                  disabled={isResolving}
-                >
-                  {isResolving ? (
-                    <>
-                      <RefreshCw className="h-3 w-3 mr-1 animate-spin" />
-                      {incident.resolved ? "Reopening..." : "Resolving..."}
-                    </>
-                  ) : (
-                    <>
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      {incident.resolved ? "Reopen Incident" : "Mark as Resolved"}
-                    </>
-                  )}
-                </Button>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </div>
       )
     },
     [

@@ -11,6 +11,7 @@ interface Camera {
   name: string
   location: string
   status: string
+  thumbnailUrl?: string
 }
 
 interface IncidentPlayerProps {
@@ -97,13 +98,17 @@ export function IncidentPlayer({ selectedIncident, currentTime }: IncidentPlayer
         <div className="aspect-video bg-black flex items-center justify-center relative">
           {selectedIncident ? (
             <img
-              src={selectedIncident.thumbnailUrl || "/placeholder.svg"}
+              src={selectedIncident.thumbnailUrl || "/placeholder.svg?height=400&width=600&query=security+incident"}
               alt={`${selectedIncident.type} incident`}
               className="w-full h-full object-cover"
             />
           ) : (
             <div className="text-center text-white/70">
-              <img src="/placeholder.svg" alt="Camera Icon" className="h-16 w-16 mx-auto mb-4 opacity-50" />
+              <img
+                src="/placeholder.svg?height=64&width=64"
+                alt="Camera Icon"
+                className="h-16 w-16 mx-auto mb-4 opacity-50"
+              />
               <p className="text-lg">Select an incident to view</p>
               <p className="text-sm opacity-70">Choose from the incident list on the right</p>
             </div>
@@ -189,14 +194,17 @@ export function IncidentPlayer({ selectedIncident, currentTime }: IncidentPlayer
 
       {/* Camera Thumbnails Strip */}
       <div className="flex space-x-2">
-        {cameras.slice(0, 3).map((camera) => (
+        {cameras.slice(0, 5).map((camera) => (
           <Card
             key={camera.id}
             className="flex-1 overflow-hidden cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
           >
             <div className="aspect-video bg-gray-100 flex items-center justify-center relative">
               <img
-                src={`/placeholder.svg?height=80&width=120&query=security+camera+${camera.name.toLowerCase().replace(/\s+/g, "+")}`}
+                src={
+                  camera.thumbnailUrl ||
+                  `/placeholder.svg?height=80&width=120&query=security+camera+${camera.name.toLowerCase().replace(/\s+/g, "+")}`
+                }
                 alt={camera.name}
                 className="w-full h-full object-cover"
               />

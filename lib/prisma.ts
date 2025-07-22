@@ -29,6 +29,7 @@ export type CameraWithIncidentCount = {
   name: string
   location: string
   status: string
+  thumbnailUrl: string
   createdAt: Date
   updatedAt: Date
   _count: {

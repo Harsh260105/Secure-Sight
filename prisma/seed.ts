@@ -28,26 +28,31 @@ async function main() {
         name: "Shop Floor A",
         location: "Main Production Area",
         status: CameraStatus.ONLINE,
+        thumbnailUrl: "https://images.unsplash.com/photo-1469289759076-d1484757abc3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         name: "Vault Camera",
         location: "Security Vault - Level B1",
         status: CameraStatus.ONLINE,
+        thumbnailUrl: "https://images.unsplash.com/photo-1609358905581-e5381612486e?q=80&w=711&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
       {
         name: "Main Entrance",
         location: "Building Entrance - Ground Floor",
         status: CameraStatus.ONLINE,
+        thumbnailUrl: "https://cdn.pixabay.com/photo/2023/09/11/06/03/building-8246151_1280.jpg",
       },
       {
         name: "Parking Lot",
         location: "Employee Parking Area",
         status: CameraStatus.ONLINE,
+        thumbnailUrl: "https://cdn.pixabay.com/photo/2019/03/17/16/17/parking-4061323_1280.jpg",
       },
       {
         name: "Server Room",
         location: "IT Infrastructure - Level 2",
         status: CameraStatus.MAINTENANCE,
+        thumbnailUrl: "https://images.unsplash.com/photo-1564457461758-8ff96e439e83?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       },
     ]
 
@@ -91,24 +96,29 @@ async function main() {
         type,
         tsStart,
         tsEnd,
-        thumbnailUrl: `https://images.unsplash.com/photo-${getImageId(type)}?w=160&h=120&fit=crop`,
+        thumbnailUrl: getHighQualityThumbnail(type),
         severity,
         resolved,
         description,
       }
     }
 
-    // Helper function to get appropriate Unsplash image IDs
-    function getImageId(type: IncidentType): string {
-      const imageMap = {
-        [IncidentType.GUN_THREAT]: "1516321318423-f06f85e504b3",
-        [IncidentType.UNAUTHORISED_ACCESS]: "1560472354-b33ff0c44a43",
-        [IncidentType.FACE_RECOGNISED]: "1507003211169-0a1dd7228f2d",
-        [IncidentType.SUSPICIOUS_ACTIVITY]: "1441986300917-64674bd600d8",
-        [IncidentType.MOTION_DETECTION]: "1504384308090-c894fdcc538d",
-        [IncidentType.EQUIPMENT_TAMPERING]: "1581092160562-40aa08e78837",
+    function getHighQualityThumbnail(type: IncidentType): string {
+      const thumbnailMap = {
+        [IncidentType.GUN_THREAT]:
+          "https://plus.unsplash.com/premium_photo-1742418264441-b75eb3135499?q=80&w=1182&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        [IncidentType.UNAUTHORISED_ACCESS]:
+          "https://images.unsplash.com/photo-1552028650-e8207c3026f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        [IncidentType.FACE_RECOGNISED]:
+          "https://plus.unsplash.com/premium_photo-1738980401923-c84c558e96b3?q=80&w=1267&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        [IncidentType.SUSPICIOUS_ACTIVITY]:
+          "https://plus.unsplash.com/premium_photo-1749724691803-f3e0e299a55a?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        [IncidentType.MOTION_DETECTION]:
+          "https://images.unsplash.com/photo-1549223940-9e14d93b1369?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        [IncidentType.EQUIPMENT_TAMPERING]:
+          "https://images.unsplash.com/photo-1745487980352-10ee937a406c?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       }
-      return imageMap[type]
+      return thumbnailMap[type]
     }
 
     // Create comprehensive incident data across 24 hours
