@@ -1,180 +1,199 @@
-# SecureSight CCTV Dashboard
+# 🛡️ SecureSight CCTV Dashboard
 
-A comprehensive CCTV monitoring dashboard built with **Next.js 15** and **Prisma ORM** connected to **Supabase PostgreSQL**.
+<div align="center">
 
-> **Note**: This application uses **Prisma exclusively** for all database operations. Supabase is used only as the PostgreSQL database provider.
+**A modern, full-stack CCTV monitoring dashboard featuring real-time incident tracking, an interactive 24-hour timeline, and optimistic UI updates. Built with Next.js 15, Prisma, and Supabase.**
 
-## 🚀 Quick Start
+[![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-5.7-2D3748?style=flat&logo=prisma)](https://www.prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.3-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 
-### Prerequisites
 
-- Node.js 18+ 
-- A Supabase account and project (for PostgreSQL database)
-- Git
+[🚀 Live Demo](https://secure-sight-pi.vercel.app/) • [📖 Documentation](#-features) 
 
-### 1. Supabase Database Setup
+</div>
 
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to **Settings** → **Database** 
-3. Copy your **Connection string** (this will be your `DATABASE_URL`)
-4. Note: We only use Supabase as a PostgreSQL provider - all operations go through Prisma
+---
 
-### 2. Environment Configuration
+## ✨ About The Project
 
-1. Copy `.env.example` to `.env.local`:
-   \`\`\`bash
-   cp .env.example .env.local
-   \`\`\`
+![SecureSight Dashboard Screenshot](https://via.placeholder.com/800x450.png?text=Project+Screenshot+or+GIF+Here)
+*(Replace the above placeholder with a screenshot or GIF of your dashboard)*
 
-2. Update the environment variables with your Supabase PostgreSQL connection:
-   \`\`\`env
-   # Replace [YOUR-PASSWORD] and [YOUR-PROJECT-REF] with actual values
-   DATABASE_URL="postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
-   DIRECT_URL="postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
-   \`\`\`
+SecureSight is a comprehensive solution for modern security monitoring. Traditional CCTV systems often have clunky, slow interfaces. This project re-imagines the experience with a fluid, real-time dashboard that allows security operators to track, review, and resolve incidents with maximum efficiency.
 
-### 3. Prisma Database Setup
+Key design principles include:
+* **⚡ Real-time First:** Data synchronization and live updates are core to the experience.
+* **Intuitive UX:** A highly interactive timeline and integrated player make incident review seamless.
+* **Optimistic UI:** Actions feel instantaneous, providing immediate feedback to the user while data synchronizes in the background.
+* **Type-Safe & Robust:** Leveraging TypeScript and Prisma from front to back ensures code quality and maintainability.
 
-1. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
+---
 
-2. Generate Prisma client:
-   \`\`\`bash
-   npx prisma generate
-   \`\`\`
+## 📚 Table of Contents
+* [🌟 Features](#-features)
+* [🛠️ Tech Stack](#️-tech-stack)
+* [🏗️ Architecture](#️-architecture)
+* [🚀 Getting Started](#-getting-started)
+* [🌐 Deployment](#-deployment)
+* [🔧 API Reference](#-api-reference)
+* [🗄️ Database Schema](#️-database-schema)
+* [🗺️ Roadmap](#️-roadmap)
+* [🤝 Contributing](#-contributing)
+* [📄 License](#-license)
 
-3. Push the Prisma schema to your database:
-   \`\`\`bash
-   npx prisma db push
-   \`\`\`
+---
 
-4. Seed the database with sample data:
-   \`\`\`bash
-   npx prisma db seed
-   \`\`\`
-
-### 4. Development
-
-Start the development server:
-\`\`\`bash
-npm run dev
-\`\`\`
-
-Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
-
-## 🏗️ Architecture Overview
-
-This application follows a **Prisma-first architecture**:
-
-\`\`\`
-┌─────────────────┐    ┌──────────────┐    ┌─────────────────┐
-│   Next.js App  │───▶│ Prisma ORM   │───▶│ Supabase        │
-│   (Frontend)    │    │ (Data Layer) │    │ (PostgreSQL DB) │
-└─────────────────┘    └──────────────┘    └─────────────────┘
-\`\`\`
-
-- **Frontend**: Next.js 15 with React components
-- **API Layer**: Next.js API routes using Prisma client
-- **Data Layer**: Prisma ORM with type-safe database operations
-- **Database**: Supabase PostgreSQL (accessed only through Prisma)
-
-## 📊 Features
+## 🌟 Features
 
 ### **🎯 Core Functionality**
-- **Real-time Incident Monitoring** - Live dashboard with incident tracking and resolution
-- **Interactive Timeline** - 24-hour incident timeline with zoom, pan, and playback controls
-- **Incident Player** - Video player interface with incident details and camera feeds
-- **Camera Management** - Multi-camera feed monitoring with status tracking
-- **Incident Resolution** - Mark incidents as resolved with optimistic UI updates
+* **🔴 Real-time Incident Monitoring:** Live dashboard for tracking and resolving incidents.
+* **⏱️ Interactive Timeline:** A 24-hour incident timeline with zoom, pan, and playback controls.
+* **🎬 Incident Player:** Integrated video player interface with detailed incident metadata.
+* **📹 Camera Management:** View and monitor multiple camera feeds and their status.
+* **✅ Incident Resolution:** Mark incidents as resolved with optimistic UI updates for an instant response.
 
-### **📈 Advanced Features**
-- **Timeline Synchronization** - Bidirectional sync between incident list and timeline
-- **Date Navigation** - Navigate through different dates with incident filtering
-- **Zoom & Pan Controls** - Multiple zoom levels (24h, 12h, 6h, 3h, 1h, 30m) with smooth panning
-- **Incident Selection** - Click incidents on timeline or list for detailed view
-- **Auto-focus** - Automatically center timeline on selected incidents
-- **Playback Controls** - Play, pause, speed control, and timeline scrubbing
+### **📈 Advanced UX**
+* **🔄 Bidirectional Sync:** Selecting an incident on the timeline highlights it in the list, and vice-versa.
+* **🎯 Auto-focus:** The timeline automatically centers on the selected incident.
+* **📅 Date Navigation:** Easily browse through historical data day by day.
+* **🔍 Granular Zoom Controls:** Multiple zoom levels (24h, 12h, 6h, 3h, 1h, 30m) for detailed inspection.
+* **▶️ Playback Controls:** Play, pause, adjust speed, and scrub through the timeline.
 
-### **🔧 Technical Features**
-- **Type-Safe Database Operations** - All database interactions through Prisma
-- **Severity Classification** - Critical, High, Medium, Low priority levels
-- **Enum-based Data Model** - Strongly typed incident types and camera statuses
-- **Optimistic Updates** - Instant UI feedback with server reconciliation
-- **Error Handling** - Robust error handling and validation
+### **🔧 Technical Highlights**
+* **🛡️ Type-Safe Operations:** End-to-end type safety with Prisma and TypeScript.
+* **⚠️ Severity Classification:** Incidents are categorized by **Critical, High, Medium,** and **Low** priority.
+* **🌙 Comprehensive Dark Theme:** Full dark/light theme system with automatic system preference detection.
 
-## 🛠️ Prisma Commands
+---
 
-All database operations use Prisma directly:
+## 🛠️ Tech Stack
 
-\`\`\`bash
-# Generate Prisma client after schema changes
-npx prisma generate
+| Category      | Technology                                                                                           | Purpose                               |
+|---------------|------------------------------------------------------------------------------------------------------|---------------------------------------|
+| **Framework** | [Next.js](https://nextjs.org/) 15                                                                    | React framework for full-stack apps   |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) 5.0                                                    | Type-safe JavaScript                  |
+| **Database** | [Supabase](https://supabase.com/) (PostgreSQL)                                                       | Managed database hosting & services   |
+| **ORM** | [Prisma](https://www.prisma.io/) 5.7                                                                 | Type-safe database client             |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/)                                                             | Utility-first CSS framework           |
+| **Components** | [shadcn/ui](https://ui.shadcn.com/)                                                                  | Accessible, unstyled UI components    |
+| **Theming** | [next-themes](https://github.com/pacocoursey/next-themes)                                            | Theme management for Next.js          |
 
-# Push schema changes to database (development)
-npx prisma db push
+---
 
-# Seed database with sample data
-npx prisma db seed
+## 🏗️ Architecture
 
-# Open Prisma Studio (visual database editor)
-npx prisma studio
+The application is built on a modern, full-stack architecture using Next.js API Routes as the backend, with all database interactions handled safely through Prisma.
 
-# Reset database and re-run migrations (⚠️ destructive)
-npx prisma migrate reset --force
+```mermaid
+graph TD
+    subgraph Browser
+        A[Next.js Frontend]
+        B[React Components]
+        C[State Management]
+    end
 
-# Pull database schema (sync from database to schema)
-npx prisma db pull
+    subgraph Server
+        D[Next.js API Routes]
+    end
 
-# Validate schema
-npx prisma validate
+    subgraph Database Layer
+        E[Prisma ORM]
+        F[Supabase PostgreSQL]
+    end
 
-# Format schema file
-npx prisma format
-\`\`\`
+    A --> D;
+    B --> A;
+    C --> B;
+    D -- Type-Safe Queries --> E;
+    E -- Manages Connection --> F;
+```
 
-## 📁 Project Structure
+---
 
-\`\`\`
-├── prisma/
-│   ├── schema.prisma      # Complete database schema with enums
-│   └── seed.ts           # Comprehensive seeding script
-├── lib/
-│   └── prisma.ts         # Prisma client & DatabaseService class
-├── app/
-│   ├── api/              # Next.js API routes (Prisma-only)
-│   │   ├── incidents/    # Incident CRUD operations
-│   │   │   ├── all/      # Fetch all incidents
-│   │   │   └── [id]/resolve/ # Toggle incident resolution
-│   │   ├── cameras/      # Camera management
-│   │   │   └── [id]/status/  # Update camera status
-│   │   ├── timeline/     # Timeline data fetching
-│   │   ├── stats/        # Dashboard statistics
-│   │   ├── health/       # Database health check
-│   │   └── debug/        # Debug endpoints
-│   └── page.tsx          # Main dashboard page
-├── components/           # React components
-│   ├── navbar.tsx        # Navigation with live camera status
-│   ├── incident-player.tsx # Video player component
-│   ├── incident-list.tsx   # Incident management list (all incidents)
-│   └── incident-timeline.tsx # Interactive timeline with controls
-└── .env.local           # Prisma database configuration
-\`\`\`
+## 🚀 Getting Started
 
-## 🗄️ Database Schema (Prisma-Managed)
+Follow these instructions to get a local copy up and running.
 
-### Models
+### **Prerequisites**
+* Node.js v18.0 or newer
+* A Supabase account and an active project
+* Git
 
-\`\`\`prisma
+### **Installation**
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/yourusername/securesight-dashboard.git](https://github.com/yourusername/securesight-dashboard.git)
+    cd securesight-dashboard
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Set up environment variables:**
+    * Copy the example environment file.
+        ```bash
+        cp .env.example .env.local
+        ```
+    * Edit `.env.local` and add your Supabase `DATABASE_URL` and `DIRECT_URL` from your project's dashboard.
+4.  **Set up the database:**
+    ```bash
+    # Generate the Prisma client based on your schema
+    npx prisma generate
+
+    # Push the schema to your Supabase database
+    npx prisma db push
+
+    # Seed the database with sample data
+    npx prisma db seed
+    ```
+5.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
+
+---
+
+## 🌐 Deployment
+
+This project is optimized for deployment on Vercel.
+
+### **Deploy with Vercel**
+The easiest way to deploy is using the Vercel platform.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/securesight-dashboard)
+
+After deploying, remember to add your `DATABASE_URL` and `DIRECT_URL` as environment variables in the Vercel project settings.
+
+---
+
+## 🔧 API Reference
+
+#### Incident Endpoints
+* `GET /api/incidents`: Fetches incidents.
+    * Query Param: `resolved=true|false` to filter by status.
+* `PATCH /api/incidents/[id]/resolve`: Toggles the resolution status of an incident.
+
+#### Camera Endpoints
+* `GET /api/cameras`: Fetches all cameras with their incident count.
+
+---
+
+## 🗄️ Database Schema
+
+```prisma
+// file: prisma/schema.prisma
+
 model Camera {
-  id        Int          @id @default(autoincrement())
-  name      String
-  location  String
-  status    CameraStatus @default(ONLINE)
-  incidents Incident[]
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id           Int          @id @default(autoincrement())
+  name         String
+  location     String
+  status       CameraStatus @default(ONLINE)
+  thumbnailUrl String
+  incidents    Incident[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
 
 model Incident {
@@ -191,240 +210,78 @@ model Incident {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 }
-\`\`\`
 
-### Enums
+enum CameraStatus {
+  ONLINE
+  OFFLINE
+  MAINTENANCE
+}
 
-- **CameraStatus**: `ONLINE`, `OFFLINE`, `MAINTENANCE`
-- **IncidentType**: `GUN_THREAT`, `UNAUTHORISED_ACCESS`, `FACE_RECOGNISED`, `SUSPICIOUS_ACTIVITY`, `MOTION_DETECTION`, `EQUIPMENT_TAMPERING`
-- **Severity**: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`
+enum IncidentType {
+  GUN_THREAT
+  UNAUTHORISED_ACCESS
+  FACE_RECOGNISED
+  SUSPICIOUS_ACTIVITY
+  MOTION_DETECTION
+  EQUIPMENT_TAMPERING
+}
 
-## 🔌 API Routes (Prisma-Powered)
-
-All API routes use the `DatabaseService` class from `lib/prisma.ts`:
-
-### **Incident Management**
-- `GET /api/incidents/all` - Fetch all incidents with camera information
-- `GET /api/incidents?resolved=true/false` - Fetch incidents by resolution status
-- `PATCH /api/incidents/[id]/resolve` - Toggle incident resolution status
-
-### **Camera Management**
-- `GET /api/cameras` - Fetch all cameras with incident counts
-- `PATCH /api/cameras/[id]/status` - Update camera status
-
-### **Timeline & Analytics**
-- `GET /api/timeline` - Fetch timeline data for 24-hour view
-- `GET /api/stats` - Get dashboard statistics and analytics
-
-### **System Health**
-- `GET /api/health` - Database connection health check
-- `GET /api/debug/incidents` - Debug endpoint for incident data
-
-## 🎮 User Interface Guide
-
-### **📋 Incident List**
-- **All Incidents View**: Shows all incidents regardless of date
-- **Active/Resolved Tabs**: Filter by resolution status
-- **Incident Cards**: Display full date, time, duration, and camera info
-- **Resolution Actions**: Mark incidents as resolved or reopen them
-- **Timeline Sync**: Selected incidents are highlighted and synchronized
-
-### **🎬 Incident Player**
-- **Video Display**: Shows incident thumbnails and details
-- **Camera Info**: Displays camera name, location, and status
-- **Incident Details**: Type, severity, description, and timestamps
-- **Multi-camera View**: Thumbnail strip of related cameras
-
-### **⏱️ Interactive Timeline**
-- **Date Navigation**: Select specific dates to view incidents
-- **Zoom Controls**: 6 zoom levels from 24 hours to 30 minutes
-- **Pan Controls**: Navigate left/right within the selected date
-- **Playback**: Play/pause with speed controls (0.5x to 4x)
-- **Incident Blocks**: Click incidents to select and view details
-- **Time Scrubber**: Drag to navigate to specific times
-
-### **🎯 Synchronization Features**
-- **Bidirectional Sync**: Selecting incidents in list updates timeline and vice versa
-- **Auto-focus**: Timeline automatically centers on selected incidents
-- **Date Sync**: Timeline date changes affect incident filtering
-- **Visual Indicators**: Selected incidents are highlighted across all components
-
-## 🔧 Customization
-
-### Adding New Incident Types
-
-1. Update the `IncidentType` enum in `prisma/schema.prisma`:
-   \`\`\`prisma
-   enum IncidentType {
-     GUN_THREAT
-     UNAUTHORISED_ACCESS
-     FACE_RECOGNISED
-     SUSPICIOUS_ACTIVITY
-     MOTION_DETECTION
-     EQUIPMENT_TAMPERING
-     NEW_INCIDENT_TYPE  // Add here
-   }
-   \`\`\`
-
-2. Push schema changes:
-   \`\`\`bash
-   npx prisma db push
-   \`\`\`
-
-3. Update frontend components to handle the new type in:
-   - `components/incident-list.tsx` (icon and color mapping)
-   - `components/incident-timeline.tsx` (color mapping)
-
-### Extending the Database Schema
-
-1. Modify `prisma/schema.prisma`
-2. Run `npx prisma db push` to apply changes
-3. Update the `DatabaseService` class if needed
-4. Regenerate Prisma client: `npx prisma generate`
-
-## 🚨 Troubleshooting
-
-### Prisma Connection Issues
-\`\`\`bash
-# Check if Prisma can connect to your database
-npx prisma db pull
-
-# Verify your DATABASE_URL format
-echo $DATABASE_URL
-\`\`\`
-
-### Schema Sync Issues
-\`\`\`bash
-# Reset and re-sync everything (⚠️ destructive)
-npx prisma migrate reset --force
-
-# Or push current schema
-npx prisma db push
-\`\`\`
-
-### Type Generation Issues
-\`\`\`bash
-# Regenerate Prisma client
-npx prisma generate
-
-# Clear Next.js cache
-rm -rf .next
-npm run dev
-\`\`\`
-
-### Common Errors
-- **P1017**: Server closed connection - Check connection string and Supabase status
-- **P1001**: Can't reach database - Network/firewall issue
-- **P2002**: Unique constraint violation - Data already exists, run reset
-- **Invalid time value**: Date parsing error - Check date format validation
-
-## 📈 Production Deployment
-
-### Environment Variables for Production
-
-Set these in your deployment platform (Vercel, Railway, etc.):
-
-\`\`\`env
-DATABASE_URL="postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
-DIRECT_URL="postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
-\`\`\`
-
-### Deployment Steps
-
-1. **Vercel Deployment**:
-   \`\`\`bash
-   # Vercel automatically runs these during build
-   npx prisma generate  # Generate Prisma client
-   npm run build        # Build Next.js app
-   \`\`\`
-
-2. **Database Setup**:
-   \`\`\`bash
-   # After deployment, seed your production database
-   npx prisma db seed
-   \`\`\`
-
-## 🔐 Security Best Practices
-
-### Current Implementation
-- Uses Prisma's built-in SQL injection protection
-- Type-safe database operations
-- Server-side API routes only
-- Input validation and error handling
-
-### Production Recommendations
-1. **Add Authentication**: Implement NextAuth.js or similar
-2. **API Rate Limiting**: Add rate limiting middleware
-3. **Input Validation**: Validate all API inputs with Zod
-4. **Database Security**: Use connection pooling for high traffic
-5. **Environment Security**: Secure environment variables
-
-## 📚 Tech Stack
-
-- **Frontend**: Next.js 15, React 18, TypeScript
-- **Database ORM**: Prisma (exclusive database layer)
-- **Database**: Supabase PostgreSQL (via Prisma only)
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Type Safety**: Full TypeScript with Prisma-generated types
-- **State Management**: React hooks and context
-- **API**: Next.js API routes with RESTful endpoints
-
-## ✅ Data Integrity & Performance
-
-The application ensures data integrity and performance through:
-
-1. **Prisma Schema Validation**: All data conforms to defined schema
-2. **TypeScript Types**: Compile-time type checking with Prisma-generated types
-3. **Database Constraints**: Foreign keys, enums, and required fields
-4. **Transaction Support**: Prisma handles database transactions automatically
-5. **Optimistic Updates**: UI updates immediately with server reconciliation
-6. **Connection Pooling**: Efficient database connection management
-7. **Query Optimization**: Prisma generates optimized SQL queries
-
-## 🎯 Development Workflow
-
-1. **Schema Changes**:
-   \`\`\`bash
-   # 1. Edit prisma/schema.prisma
-   # 2. Push changes
-   npx prisma db push
-   # 3. Regenerate client
-   npx prisma generate
-   \`\`\`
-
-2. **Adding Features**:
-   \`\`\`bash
-   # 1. Update schema if needed
-   # 2. Update DatabaseService in lib/prisma.ts
-   # 3. Create/update API routes
-   # 4. Update frontend components
-   \`\`\`
-
-3. **Testing & Debugging**:
-   \`\`\`bash
-   # Use Prisma Studio to inspect data
-   npx prisma studio
-   
-   # Reset database for testing
-   npx prisma migrate reset --force
-   
-   # Check API health
-   curl http://localhost:3000/api/health
-   \`\`\`
-
-## 🚀 Performance Features
-
-- **Optimistic UI Updates**: Instant feedback for user actions
-- **Efficient Data Fetching**: Single API calls for comprehensive data
-- **Timeline Virtualization**: Smooth rendering of large datasets
-- **Memoized Components**: Optimized re-rendering with React.memo
-- **Debounced Interactions**: Smooth user experience with rate limiting
-- **Lazy Loading**: Components load as needed
-
-## 📄 License
-
-This project is for assessment purposes. Please refer to your organization's policies for usage and distribution.
+enum Severity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+```
 
 ---
 
-**Note**: This application demonstrates a complete CCTV monitoring solution using modern web technologies. It uses Prisma exclusively for all database operations, ensuring consistent, type-safe, and maintainable data access patterns throughout the application. The interactive timeline and synchronized incident management provide a comprehensive security monitoring experience.
+## 🗺️ Roadmap
+
+This project has a solid foundation. Here are some features planned for the future:
+
+* [ ] **Authentication:** Implement NextAuth.js with role-based access for operators and admins.
+* [ ] **Real-time Updates:** Integrate WebSockets (e.g., via Supabase Realtime) for live incident feeds without manual refreshing.
+* [ ] **Advanced Analytics:** A dedicated analytics page with charts for incident trends and camera uptime.
+* [ ] **PWA Support:** Add a service worker and manifest file for offline capabilities and a native-like mobile experience.
+* [ ] **Notifications:** Implement email or push notifications for critical incidents.
+* [ ] **Comprehensive Testing:** Add end-to-end tests with Playwright and unit tests with Jest/RTL.
+* [ ] **Performance Caching:** Implement Redis for caching expensive API queries.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have a suggestion or want to fix a bug, please fork the repo and create a pull request.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
+
+---
+
+## 🙏 Acknowledgments
+A big thanks to the creators and maintainers of the tools that made this project possible:
+* [Next.js](https://nextjs.org/)
+* [Prisma](https://www.prisma.io/)
+* [Supabase](https://supabase.com/)
+* [shadcn](https://ui.shadcn.com/)
+* [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+<div align="center">
+
+**Built with ❤️ by Harsh**
+
+[⬆ Back to Top](#-securesight-cctv-dashboard)
+
+</div>
