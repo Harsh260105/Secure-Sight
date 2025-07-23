@@ -259,12 +259,6 @@ Contributions are welcome! If you have a suggestion or want to fix a bug, please
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
-
----
-
 ## 🙏 Acknowledgments
 A big thanks to the creators and maintainers of the tools that made this project possible:
 * [Next.js](https://nextjs.org/)
